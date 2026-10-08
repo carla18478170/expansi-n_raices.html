@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Raíces & Expansión</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background-color: #FDFBF7;
+      color: #2C2523;
+      min-height: 100vh;
+      overscroll-behavior: none;
+    }
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    input, textarea, button, select { font-family: inherit; }
+
+    /* ─── Hide number spinners ─── */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input[type="number"] { -moz-appearance: textfield; }
+
+    /* ─── Layout ─── */
+    .main-wrap {
+      padding-top: 82px;
+      padding-bottom: 90px;
+      padding-left: 18px;
+      padding-right: 18px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ─── Tabs ─── */
+    .tab-panel { display: none; }
+    .tab-panel.is-active { display: block; animation: fadeUp .35s ease; }
+
+    /* ─── Animations ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes bob {
+      0%,60%,100% { transform: translateY(0); }
+      30%          { transform: translateY(-5px); }
+    }
+    .reveal { animation: fadeUp .4s ease; }
+    .d1 { animation: bob 1.3s infinite; }
+    .d2 { animation: bob 1.3s .22s infinite; }
+    .d3 { animation: bob 1.3s .44s infinite; }
+
+    /* ─── Cards ─── */
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #EDE8E1;
+      border-radius: 18px;
+      box-shadow: 0 1px 6px rgba(44,37,35,.06);
+    }
+    .card-terra {
+      background: #FDF0EB;
+      border: 1.5px solid #D4846B;
+      border-radius: 16px;
+    }
+
+    /* ─── State / Selector buttons ─── */
+    .sel-btn {
+      width: 100%;
+      text-align: left;
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 2px solid #EDE8E1;
+      background: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: border-color .2s, background-color .2s, transform .15s;
+      box-shadow: 0 1px 5px rgba(44,37,35,.05);
+    }
+    .sel-btn:active { transform: scale(.98); }
+    .sel-btn .ico  { font-size: 1.65rem; line-height: 1; flex-shrink: 0; }
+    .sel-btn .lbl  { font-size: .9rem; font-weight: 700; margin-bottom: 3px; }
+    .sel-btn .sub  { font-size: .75rem; color: #7E8B78; font-weight: 300; line-height: 1.4; }
+
+    /* ─── Primary button ─── */
+    .btn-terra {
+      width: 100%; padding: 15px; border-radius: 14px;
+      background: #C86D51; color: white; border: none;
+      cursor: pointer; font-size: .9rem; font-weight: 700;
+      letter-spacing: .03em;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-terra:active { opacity: .85; transform: scale(.98); }
+
+    .btn-sage {
+      width: 100%; padding: 15px; border-radius: 14px;
+      background: #7E8B78; color: white; border: none;
+      cursor: pointer; font-size: .9rem; font-weight: 700;
+      transition: opacity .2s;
+    }
+    .btn-sage:active { opacity: .85; }
+
+    /* ─── Nav ─── */
+    .nav-item { color: #B2BAB0; transition: color .2s; }
+    .nav-item.is-active { color: #C86D51; }
+    .nav-item.is-active .nl { font-weight: 700; }
+
+    /* ─── Chat ─── */
+    .chat-scroll {
+      overflow-y: auto;
+      display: flex; flex-direction: column; gap: 14px;
+      padding-right: 2px;
+      scrollbar-width: thin;
+      scrollbar-color: #D4846B transparent;
+    }
+    .chat-scroll::-webkit-scrollbar { width: 3px; }
+    .chat-scroll::-webkit-scrollbar-thumb { background: #D4846B; border-radius: 2px; }
+
+    .bub {
+      border-radius: 16px;
+      padding: 13px 16px;
+      max-width: 82%;
+    }
+    .bub p { font-size: .84rem; font-weight: 300; line-height: 1.65; }
+    .bub p + p { margin-top: 7px; }
+
+    .bub-c {
+      background: #FFFFFF; border: 1px solid #EDE8E1;
+      border-top-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(44,37,35,.05);
+    }
+    .bub-c p { color: #2C2523; }
+    .bub-u { background: #C86D51; border-top-right-radius: 4px; }
+    .bub-u p { color: white; }
+
+    /* ─── Modal ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(44,37,35,.68);
+      backdrop-filter: blur(7px);
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.is-open { display: flex; }
+    .modal-box {
+      background: #FDFBF7; border-radius: 26px;
+      padding: 36px 26px 28px; max-width: 390px; width: 100%;
+      box-shadow: 0 24px 64px rgba(44,37,35,.28);
+      animation: fadeUp .3s ease;
+    }
+
+    /* ─── Input field ─── */
+    .fin {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; color: #2C2523;
+      background: transparent; border: none; outline: none; width: 100%;
+    }
+    .fin::placeholder { color: #D5CFC7; }
+
+    /* ─── Tiny label ─── */
+    .tlabel {
+      font-size: .68rem; font-weight: 700; color: #7E8B78;
+      letter-spacing: .17em; text-transform: uppercase;
+    }
+
+    /* ─── Step ─── */
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .step-n {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: .68rem; font-weight: 700; margin-top: 1px;
+    }
+    .step-t { font-size: .82rem; font-weight: 300; line-height: 1.6; color: #2C2523; }
+
+    /* ─── Decorative divider ─── */
+    .divider {
+      text-align: center; margin: 6px 0 2px;
+      font-size: .7rem; color: #C4BAB3; letter-spacing: .15em;
+    }
+  </style>
+</head>
+<body style="background:#FDFBF7;">
+
+<!-- ══════════════════════════════════════════
+     HEADER FIJO
+══════════════════════════════════════════ -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(253,251,247,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid #EDE8E1;padding:14px 20px 12px;">
+  <div style="text-align:center;max-width:500px;margin:0 auto;">
+    <h1 class="serif" style="font-size:1.55rem;font-weight:400;color:#7E8B78;
+      letter-spacing:.05em;">🌱 Raíces &amp; Expansión</h1>
+    <p style="font-size:.6rem;color:#C86D51;letter-spacing:.22em;
+      text-transform:uppercase;font-weight:700;margin-top:3px;">
+      Sana tu origen &middot; Despliega tu abundancia
+    </p>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     CONTENIDO PRINCIPAL
+══════════════════════════════════════════ -->
+<main class="main-wrap">
+
+
+  <!-- ╔══════════════════════════════════════
+       TAB 1 · SOMA
+  ══════════════════════════════════════╗ -->
+  <div id="panel-soma" class="tab-panel is-active">
+
+    <div style="padding-top:6px;margin-bottom:22px;">
+      <h2 class="serif" style="font-size:2.1rem;font-weight:300;color:#2C2523;margin-bottom:5px;">
+        Check-in Somático
+      </h2>
+      <p style="font-size:.84rem;color:#7E8B78;font-weight:300;line-height:1.65;">
+        ¿En qué estado siente tu cuerpo hoy?
+      </p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:18px;">
+
+      <button class="sel-btn soma-btn" onclick="selectState('simpatico',this)">
+        <span class="ico">⚡</span>
+        <div>
+          <div class="lbl" style="color:#C86D51;">Simpático</div>
+          <div class="sub">Ansiedad · Agobio · Aceleración</div>
+        </div>
+      </button>
+
+      <button class="sel-btn soma-btn" onclick="selectState('dorsal',this)">
+        <span class="ico">🌑</span>
+        <div>
+          <div class="lbl" style="color:#5D6A58;">Dorsal Vagal</div>
+          <div class="sub">Parálisis · Procrastinación · Cansancio</div>
+        </div>
+      </button>
+
+      <button class="sel-btn soma-btn" onclick="selectState('ventral',this)">
+        <span class="ico">🌿</span>
+        <div>
+          <div class="lbl" style="color:#7E8B78;">Ventral Vagal</div>
+          <div class="sub">Calma · Presencia · Seguridad</div>
+        </div>
+      </button>
+
+    </div>
+
+    <div id="soma-wrap" style="display:none;">
+      <div id="soma-inner" class="card reveal" style="padding:22px 20px;"></div>
+    </div>
+
+  </div><!-- /soma -->
+
+
+  <!-- ╔══════════════════════════════════════
+       TAB 2 · LINAJE
+  ══════════════════════════════════════╗ -->
+  <div id="panel-linaje" class="tab-panel">
+
+    <div style="padding-top:6px;margin-bottom:22px;">
+      <h2 class="serif" style="font-size:2.1rem;font-weight:300;color:#2C2523;margin-bottom:5px;">
+        Árbol Ancestral
+      </h2>
+      <p style="font-size:.84rem;color:#7E8B78;font-weight:300;line-height:1.65;">
+        ¿Qué patrón del linaje está listo para sanar hoy?
+      </p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:18px;">
+
+      <button class="sel-btn linaje-btn" onclick="selectLinaje('dinero',this)">
+        <span class="ico">💰</span>
+        <div><div class="lbl" style="color:#2C2523;">Dificultad con el Dinero / Escasez</div></div>
+      </button>
+
+      <button class="sel-btn linaje-btn" onclick="selectLinaje('visibilidad',this)">
+        <span class="ico">👁️</span>
+        <div><div class="lbl" style="color:#2C2523;">Miedo a la Visibilidad / Exposición</div></div>
+      </button>
+
+      <button class="sel-btn linaje-btn" onclick="selectLinaje('culpa',this)">
+        <span class="ico">🌳</span>
+        <div><div class="lbl" style="color:#2C2523;">Culpa al Cobrar o Superar al Clan</div></div>
+      </button>
+
+    </div>
+
+    <div id="linaje-wrap" style="display:none;">
+      <div id="linaje-inner" class="card reveal" style="padding:22px 20px;"></div>
+    </div>
+
+  </div><!-- /linaje -->
+
+
+  <!-- ╔══════════════════════════════════════
+       TAB 3 · DON DIVINO
+  ══════════════════════════════════════╗ -->
+  <div id="panel-don-divino" class="tab-panel">
+
+    <div style="padding-top:6px;margin-bottom:22px;">
+      <h2 class="serif" style="font-size:2.1rem;font-weight:300;color:#2C2523;margin-bottom:5px;">
+        Monetiza tu Talento
+      </h2>
+      <p style="font-size:.84rem;color:#7E8B78;font-weight:300;line-height:1.65;">
+        Calcula la frecuencia de tu merecimiento económico
+      </p>
+    </div>
+
+    <!-- Inputs -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;">
+
+      <div class="card" style="padding:20px 22px;">
+        <div class="tlabel" style="margin-bottom:12px;">Meta de Ingresos Mensuales</div>
+        <div style="display:flex;align-items:center;gap:8px;
+          border-bottom:2px solid #EDE8E1;padding-bottom:5px;">
+          <span class="serif" style="font-size:1.8rem;color:#C86D51;line-height:1;">$</span>
+          <input class="fin" type="number" id="income" placeholder="0" min="0"
+            oninput="calcRate()" aria-label="Meta de ingresos mensuales">
+        </div>
+      </div>
+
+      <div class="card" style="padding:20px 22px;">
+        <div class="tlabel" style="margin-bottom:12px;">Horas Disponibles al Mes</div>
+        <div style="display:flex;align-items:center;gap:8px;
+          border-bottom:2px solid #EDE8E1;padding-bottom:5px;">
+          <input class="fin" type="number" id="hours" placeholder="0" min="0"
+            oninput="calcRate()" style="flex:1;" aria-label="Horas disponibles al mes">
+          <span style="font-size:.82rem;color:#7E8B78;font-weight:300;white-space:nowrap;">
+            hrs / mes
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Resultados -->
+    <div id="rate-wrap" style="display:none;">
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;" class="reveal">
+
+        <div class="card" style="padding:20px 22px;">
+          <div class="tlabel" style="margin-bottom:8px;">Tarifa Base por Hora</div>
+          <div class="serif" style="font-size:2.6rem;font-weight:300;color:#2C2523;">
+            $<span id="base-rate">0</span>
+          </div>
+        </div>
+
+        <div class="card-terra" style="padding:20px 22px;">
+          <div class="tlabel" style="color:#C86D51;margin-bottom:4px;">
+            ✨ Tarifa de Merecimiento
+          </div>
+          <p style="font-size:.75rem;color:#7E8B78;font-weight:300;margin-bottom:10px;">
+            Para mentorías, programas o paquetes grupales
+          </p>
+          <div class="serif" style="font-size:2.6rem;font-weight:300;color:#C86D51;">
+            $<span id="worthy-rate">0</span>
+          </div>
+          <p style="font-size:.72rem;color:#7E8B78;font-weight:300;margin-top:5px;">
+            por hora equivalente en paquetes
+          </p>
+        </div>
+
+        <button class="btn-terra" onclick="openModal()">
+          ✨ Recibir mi Decreto de Merecimiento
+        </button>
+
+      </div>
+    </div>
+
+  </div><!-- /don-divino -->
+
+
+  <!-- ╔══════════════════════════════════════
+       TAB 4 · GUÍA IA
+  ══════════════════════════════════════╗ -->
+  <div id="panel-guia-ia" class="tab-panel">
+
+    <!-- Barra de Carla -->
+    <div style="display:flex;align-items:center;gap:13px;padding-top:6px;margin-bottom:14px;">
+      <div style="width:46px;height:46px;border-radius:50%;background:#C86D51;
+        display:flex;align-items:center;justify-content:center;
+        color:white;font-family:'Cormorant Garamond',serif;font-size:1.35rem;flex-shrink:0;">
+        C
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:.9rem;font-weight:700;color:#2C2523;">Carla Rodríguez</div>
+        <div style="font-size:.72rem;color:#7E8B78;font-weight:300;">
+          Coach Transgeneracional &middot; Holística
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
+        <div style="width:7px;height:7px;border-radius:50%;background:#7E8B78;"></div>
+        <span style="font-size:.7rem;color:#7E8B78;">En línea</span>
+      </div>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="chat-scroll" id="chat-msgs"
+      style="height:calc(100vh - 330px);min-height:200px;margin-bottom:12px;">
+
+      <!-- Bienvenida de Carla -->
+      <div style="display:flex;align-items:flex-start;gap:10px;animation:fadeIn .4s ease;">
+        <div style="width:34px;height:34px;border-radius:50%;background:#C86D51;
+          display:flex;align-items:center;justify-content:center;
+          color:white;font-family:'Cormorant Garamond',serif;font-size:1rem;flex-shrink:0;">C</div>
+        <div class="bub bub-c">
+          <p>Hola, querida. Soy Carla. Estoy aquí para acompañarte en este proceso de sanación y expansión. 🌿</p>
+          <p>¿Qué trae hoy tu corazón?</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Input -->
+    <div style="display:flex;gap:10px;align-items:flex-end;">
+      <div class="card" style="flex:1;padding:11px 15px;">
+        <textarea id="chat-in" rows="1"
+          placeholder="Escribe aquí lo que sientes..."
+          style="width:100%;resize:none;background:transparent;border:none;
+            outline:none;font-size:.84rem;color:#2C2523;font-weight:300;
+            line-height:1.5;overflow:hidden;max-height:80px;
+            font-family:'Nunito',sans-serif;"
+          oninput="autoGrow(this)"
+          onkeydown="chatKey(event)"
+          aria-label="Mensaje para Carla"></textarea>
+      </div>
+      <button onclick="sendMsg()"
+        style="width:47px;height:47px;border-radius:14px;background:#C86D51;
+          border:none;cursor:pointer;display:flex;align-items:center;
+          justify-content:center;flex-shrink:0;transition:opacity .2s;"
+        onmousedown="this.style.opacity='.8'"
+        onmouseup="this.style.opacity='1'"
+        aria-label="Enviar mensaje">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+          stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+
+  </div><!-- /guia-ia -->
+
+</main>
+
+
+<!-- ══════════════════════════════════════════
+     NAVEGACIÓN INFERIOR FIJA
+══════════════════════════════════════════ -->
+<nav style="position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(12px);
+  border-top:1px solid #EDE8E1;padding:7px 0 14px;" role="navigation">
+  <div style="display:flex;justify-content:space-around;max-width:500px;margin:0 auto;">
+
+    <button class="nav-item is-active" onclick="goTab('soma',this)"
+      style="display:flex;flex-direction:column;align-items:center;gap:3px;
+        padding:5px 10px;background:none;border:none;cursor:pointer;"
+      aria-label="Soma">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06
+          a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78
+          1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      <span class="nl" style="font-size:.62rem;letter-spacing:.02em;">Soma</span>
+    </button>
+
+    <button class="nav-item" onclick="goTab('linaje',this)"
+      style="display:flex;flex-direction:column;align-items:center;gap:3px;
+        padding:5px 10px;background:none;border:none;cursor:pointer;"
+      aria-label="Linaje">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22v-8"/>
+        <path d="M12 14c0-3.5-3-6-5.5-4.5"/>
+        <path d="M12 14c0-3.5 3-6 5.5-4.5"/>
+        <path d="M12 18c0-2-1.5-3.5-3-3"/>
+        <path d="M12 18c0-2 1.5-3.5 3-3"/>
+        <circle cx="12" cy="4" r="2"/>
+      </svg>
+      <span class="nl" style="font-size:.62rem;letter-spacing:.02em;">Linaje</span>
+    </button>
+
+    <button class="nav-item" onclick="goTab('don-divino',this)"
+      style="display:flex;flex-direction:column;align-items:center;gap:3px;
+        padding:5px 10px;background:none;border:none;cursor:pointer;"
+      aria-label="Don Divino">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02
+          12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <span class="nl" style="font-size:.62rem;letter-spacing:.02em;">Don Divino</span>
+    </button>
+
+    <button class="nav-item" onclick="goTab('guia-ia',this)"
+      style="display:flex;flex-direction:column;align-items:center;gap:3px;
+        padding:5px 10px;background:none;border:none;cursor:pointer;"
+      aria-label="Guía IA">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14
+          a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span class="nl" style="font-size:.62rem;letter-spacing:.02em;">Guía IA</span>
+    </button>
+
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     MODAL · DECRETO DE MERECIMIENTO
+══════════════════════════════════════════ -->
+<div id="modal-decreto" class="modal-overlay"
+  onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div style="text-align:center;margin-bottom:22px;">
+      <div style="font-size:3rem;margin-bottom:10px;">✨</div>
+      <h3 class="serif" style="font-size:1.8rem;font-weight:400;color:#2C2523;margin-bottom:5px;">
+        Decreto de Merecimiento
+      </h3>
+      <div class="tlabel" style="color:#C86D51;">Repite en voz alta · 3 veces</div>
+    </div>
+
+    <div class="card-terra" style="padding:22px 20px;margin-bottom:16px;">
+      <p class="serif" style="font-size:1.05rem;font-weight:300;
+        line-height:1.85;font-style:italic;text-align:center;color:#2C2523;">
+        "Yo merezco recibir abundancia por el valor genuino que entrego al mundo.
+        Mi talento tiene precio porque tiene propósito. Me permito cobrar con amor,
+        confianza y dignidad. Al prosperar yo, sano a quienes vinieron antes.
+        El dinero fluye hacia mí como reconocimiento de mi presencia y mis dones."
+      </p>
+    </div>
+
+    <p style="font-size:.75rem;color:#7E8B78;font-weight:300;text-align:center;
+      line-height:1.65;margin-bottom:18px;">
+      🌿 Con la mano en el corazón. Respirando. Recibiendo.
+    </p>
+
+    <button class="btn-sage" onclick="closeModal()">Cerrar y Continuar</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+
+/* ══ TAB NAVIGATION ══ */
+function goTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('is-active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('is-active'));
+  document.getElementById('panel-' + id).classList.add('is-active');
+  btn.classList.add('is-active');
+  window.scrollTo({ top: 0 });
+}
+
+
+/* ══ SOMA DATA ══ */
+const SOMA = {
+  simpatico: {
+    emoji: '⚡', ac: '#C86D51', bg: '#FDF0EB', bd: '#D4846B',
+    title: 'Estado Simpático Activado',
+    diag: 'Tu sistema nervioso está en modo de protección activa. El eje simpático-suprarrenal libera cortisol y adrenalina preparando al cuerpo para huir o luchar. Esta respuesta es inteligente y tiene sentido desde tu historia. Cuando se vuelve crónica, agota tus recursos vitales y creativos. Tu cuerpo necesita ahora una señal de seguridad.',
+    exName: '🌊 Suspiro Fisiológico (2-3 min)',
+    steps: [
+      'Siéntate o acuéstate con la espalda apoyada en algo sólido.',
+      'Inhala profundo por la nariz en 2 tiempos; luego una segunda inhalación corta para llenar los pulmones al máximo.',
+      'Exhala muy lentamente por la boca en 6 a 8 tiempos, vaciando completamente.',
+      'Repite 5 veces. Cada exhalación larga activa tu nervio vago ventral.',
+      'Al terminar: pon una mano en el corazón y di: "Estoy aquí. Estoy segura. Esto pasará."'
+    ]
+  },
+  dorsal: {
+    emoji: '🌑', ac: '#5D6A58', bg: '#F0F3EF', bd: '#A4AFA0',
+    title: 'Estado Dorsal Vagal Activado',
+    diag: 'Tu sistema nervioso está en apagado protector. El vago dorsal desacelera el cuerpo cuando la amenaza parece insuperable. No es pereza ni debilidad: es una respuesta de supervivencia antiquísima y sabia. Tu cuerpo necesita movimiento suave y estimulación sensorial para salir del congelamiento.',
+    exName: '🌱 Movilización Gentil (2-3 min)',
+    steps: [
+      'Empieza haciendo vibrar tus labios suavemente (como un caballo soplando). Esto estimula directamente el nervio vago.',
+      'Mueve la cabeza muy despacio de lado a lado, como diciendo "no" en cámara lenta. Repite 10 veces.',
+      'Frota las palmas de tus manos con energía hasta sentir calor. Cúbrete el rostro y recibe ese calor.',
+      'Da pequeños saltos suaves en el lugar o sacude los brazos energéticamente por 20 segundos.',
+      'Termina de pie, ojos abiertos: nombra en voz alta 5 cosas que puedas ver a tu alrededor. Eso te ancla al presente.'
+    ]
+  },
+  ventral: {
+    emoji: '🌿', ac: '#7E8B78', bg: '#F0F3EF', bd: '#A4AFA0',
+    title: '¡Estado Ventral Vagal Activo!',
+    diag: 'Tu sistema nervioso está en su estado óptimo: el "estado social seguro". Aquí ocurren el aprendizaje real, la creatividad, la conexión genuina y la generosidad. Este es el suelo fértil desde el cual tu abundancia puede crecer. Es momento de anclar esta experiencia en tu memoria corporal para poder regresar a ella.',
+    exName: '💛 Ancla de Presencia (2 min)',
+    steps: [
+      'Cierra los ojos. Respira naturalmente y siente la calidad de este momento de calma.',
+      'Pon una mano en el corazón y la otra en el vientre. Siente el calor del contacto.',
+      'Recuerda 3 cosas simples por las que hoy te sientes genuinamente agradecida. Nómbralas en voz baja.',
+      'Imagina que esta sensación de calma es una semilla que plantas conscientemente en tu cuerpo.',
+      'Di en voz alta: "Este es mi estado natural. Puedo volver aquí siempre que lo necesite. Este momento es mío."'
+    ]
+  }
+};
+
+function selectState(state, btn) {
+  const d = SOMA[state];
+  document.querySelectorAll('.soma-btn').forEach(b => {
+    b.style.borderColor = '#EDE8E1';
+    b.style.backgroundColor = '#FFFFFF';
+  });
+  btn.style.borderColor = d.bd;
+  btn.style.backgroundColor = d.bg;
+
+  const stepsHTML = d.steps.map((s, i) => `
+    <div class="step">
+      <div class="step-n" style="background:${d.ac};">${i+1}</div>
+      <div class="step-t">${s}</div>
+    </div>`).join('');
+
+  document.getElementById('soma-inner').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+      <span style="font-size:1.5rem;">${d.emoji}</span>
+      <h3 class="serif" style="font-size:1.15rem;font-weight:600;color:${d.ac};">${d.title}</h3>
+    </div>
+    <p style="font-size:.83rem;font-weight:300;line-height:1.75;color:#2C2523;margin-bottom:18px;">${d.diag}</p>
+    <div style="background:${d.bg};border:1px solid ${d.bd};border-radius:14px;padding:17px 16px;">
+      <div style="font-size:.82rem;font-weight:700;color:${d.ac};margin-bottom:14px;">${d.exName}</div>
+      ${stepsHTML}
+    </div>
+  `;
+
+  const wrap = document.getElementById('soma-wrap');
+  wrap.style.display = 'block';
+  const inner = document.getElementById('soma-inner');
+  inner.classList.remove('reveal');
+  void inner.offsetWidth;
+  inner.classList.add('reveal');
+  setTimeout(() => wrap.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
+}
+
+
+/* ══ LINAJE DATA ══ */
+const LINAJE = {
+  dinero: {
+    icon: '💰', color: '#C86D51',
+    title: 'La Escasez Heredada',
+    pattern: 'En algún lugar de tu árbol familiar hay alguien que creyó que el dinero era peligroso o inalcanzable. Tus ancestros quizás vivieron guerras, crisis, colonización o pobreza extrema. El clan aprendió una ley de supervivencia: <em style="color:#C86D51;">"El dinero no es para nosotros."</em><br><br>Al identificarte con esa carencia, los honras inconscientemente. Pero esa lealtad ya no te sirve. Puedes honrarlos de otra manera: prosperando.',
+    phrase: '"Querido linaje, los veo. Veo su lucha y su miedo. Los honro y los respeto profundamente. Y hoy, desde el amor, elijo un camino diferente. Su historia de escasez fue real y necesaria. La mía puede ser diferente. Al prosperar yo, sano lo que quedó pendiente en nuestro árbol. Los llevo conmigo siempre."'
+  },
+  visibilidad: {
+    icon: '👁️', color: '#7E8B78',
+    title: 'La Invisibilidad Protectora',
+    pattern: 'En algún lugar de tu árbol familiar, ser visto/a fue peligroso. Hubo ancestros silenciados por su género, perseguidos por sus ideas o castigados por destacar. El clan aprendió: <em style="color:#7E8B78;">"Para sobrevivir, hay que no llamar la atención."</em><br><br>Hoy esa ley vive en ti como miedo escénico o auto-sabotaje. Pero el mundo es diferente. Tu visibilidad no te pone en peligro: te conecta con quienes te necesitan.',
+    phrase: '"Querido linaje, reconozco que el silencio fue su armadura. Que esconderse fue su forma de amarse y sobrevivir. Los honro profundamente. Y hoy declaro: soy diferente. Mi visibilidad es segura y necesaria. Salgo al mundo con amor y con el permiso consciente del clan."'
+  },
+  culpa: {
+    icon: '🌳', color: '#5D6A58',
+    title: 'La Culpa del Éxito',
+    pattern: 'Cuando crecemos más allá del lugar que la familia ocupó, el sistema interpreta la prosperidad como traición. La culpa al cobrar bien o brillar más es un acto de amor distorsionado: <em style="color:#5D6A58;">"No me voy a separar de ustedes prosperando."</em><br><br>Pero al quedarte pequeña, tampoco los honras: los contienes. Tu éxito no los abandona. Los completa.',
+    phrase: '"Queridos ancestros, no los abandono al prosperar. Los llevo conmigo. Mi éxito es extensión de todo lo que sembraron. Cobrar bien es honrar el trabajo. Crecer es honrar la vida. Me permito ir más lejos de donde llegaron. Al hacerlo, completo algo inconcluso. Con amor, continúo."'
+  }
+};
+
+function selectLinaje(type, btn) {
+  const d = LINAJE[type];
+  document.querySelectorAll('.linaje-btn').forEach(b => {
+    b.style.borderColor = '#EDE8E1';
+    b.style.backgroundColor = '#FFFFFF';
+  });
+  btn.style.borderColor = '#C86D51';
+  btn.style.backgroundColor = '#FDF0EB';
+
+  document.getElementById('linaje-inner').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+      <span style="font-size:1.5rem;">${d.icon}</span>
+      <h3 class="serif" style="font-size:1.15rem;font-weight:600;color:${d.color};">${d.title}</h3>
+    </div>
+    <p style="font-size:.83rem;font-weight:300;line-height:1.78;color:#2C2523;margin-bottom:18px;">${d.pattern}</p>
+    <div class="card-terra" style="padding:17px 18px;margin-bottom:12px;">
+      <div class="tlabel" style="color:#C86D51;margin-bottom:10px;">
+        🌳 Frase de Desvinculación y Honra
+      </div>
+      <p class="serif" style="font-size:1rem;font-weight:300;line-height:1.85;
+        font-style:italic;color:#2C2523;">${d.phrase}</p>
+    </div>
+    <p style="font-size:.74rem;color:#7E8B78;font-weight:300;text-align:center;">
+      🌿 Repite en voz alta &middot; De pie &middot; Manos en el corazón
+    </p>
+  `;
+
+  const wrap = document.getElementById('linaje-wrap');
+  wrap.style.display = 'block';
+  const inner = document.getElementById('linaje-inner');
+  inner.classList.remove('reveal');
+  void inner.offsetWidth;
+  inner.classList.add('reveal');
+  setTimeout(() => wrap.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
+}
+
+
+/* ══ DON DIVINO ══ */
+function calcRate() {
+  const income = parseFloat(document.getElementById('income').value) || 0;
+  const hours  = parseFloat(document.getElementById('hours').value)  || 0;
+  const wrap   = document.getElementById('rate-wrap');
+
+  if (income > 0 && hours > 0) {
+    const base   = income / hours;
+    const worthy = base * 1.65;
+    document.getElementById('base-rate').textContent  = fmt(Math.round(base));
+    document.getElementById('worthy-rate').textContent = fmt(Math.round(worthy));
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
+function fmt(n) { return n.toLocaleString('es-MX'); }
+
+function openModal() {
+  document.getElementById('modal-decreto').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-decreto').classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+
+/* ══ GUÍA IA — CHAT ══ */
+const REPLIES = [
+  {
+    keys: ['dinero','plata','cobrar','tarifa','precio','abundancia','escasez',
+           'económico','ingresos','prosperar','facturo','facturas'],
+    msgs: [
+      'Entiendo que la relación con el dinero puede traer mucha carga ancestral. A veces, cuando cuesta cobrar lo que merecemos, es porque inconscientemente creemos que traicionamos al clan al prosperar. Tu bienestar económico no le quita nada a nadie; al contrario, sanas cuando prosperas.',
+      'Te invito a explorar: ¿quién en tu familia tuvo una relación difícil con el dinero? Esa historia no tiene que ser la tuya.',
+      'Si sientes que este nudo es profundo y recurrente, una sesión 1:1 puede ser el espacio perfecto para trabajarlo con la profundidad que merece. 💛'
+    ]
+  },
+  {
+    keys: ['visibilidad','mostrar','exponer','vergüenza','miedo','expuesta',
+           'visible','mostrarme','aparecer','redes','publicar'],
+    msgs: [
+      'El miedo a ser vista suele ser uno de los más poderosos que existen. Muchas veces no es tuyo: es un legado de generaciones que debieron callar, esconderse o no brillar para mantenerse seguras.',
+      'Hoy el mundo es diferente. Tu visibilidad no solo es segura: es necesaria. El mundo necesita exactamente lo que tú traes.',
+      'Si sientes que este miedo tiene raíces muy profundas, te recomiendo explorarlo juntas en una sesión 1:1 donde podamos ir al origen de esa lealtad invisible. 🌿'
+    ]
+  },
+  {
+    keys: ['cansancio','agotada','sin energía','exhausta','burnout','no puedo',
+           'cansada','agotamiento','desgana','drenada'],
+    msgs: [
+      'El cansancio profundo que describes puede ser señal de que tu sistema nervioso lleva mucho tiempo en modo de supervivencia. No es falta de voluntad: es biología pura.',
+      'Antes de cualquier acción, date permiso de descansar sin culpa. El descanso es productivo. Respira, toma agua, pon los pies descalzos en el suelo.',
+      'Si este agotamiento es constante y sientes que te cuesta salir de él, sería muy valioso trabajarlo en una sesión 1:1 para entender qué patrones te mantienen en ese estado. 💙'
+    ]
+  },
+  {
+    keys: ['ansiedad','angustia','estrés','acelerada','nerviosa','pánico',
+           'ansiosa','agobio','abrumada','sobrepasada'],
+    msgs: [
+      'Lo que describes es tu sistema nervioso en modo de protección. No hay nada malo contigo: tu cuerpo está haciendo exactamente lo que aprendió a hacer para mantenerte segura.',
+      'Ahora mismo, intenta esto: inhala 4 tiempos, sostén 4, exhala 6. Repítelo 3 veces. Pon una mano en el pecho y otra en el vientre. Siente el calor.',
+      'Si la ansiedad es recurrente o intensa, una sesión 1:1 nos permitiría explorar cuándo y cómo tu sistema aprendió a responder así, y comenzar a reprogramarlo con gentileza. 🌸'
+    ]
+  },
+  {
+    keys: ['culpa','merezco','no merezco','merecer','valor','valorarme',
+           'suficiente','merecedora','siento que no','no soy'],
+    msgs: [
+      'La culpa y la sensación de no merecer suelen ser las señales más claras de una lealtad invisible al linaje. Crecer, cobrar bien, brillar... a veces inconscientemente lo vivimos como una traición.',
+      'Pero mereces exactamente lo que das. Y al prosperar tú, sanas a quienes vinieron antes. Tu éxito no abandona al clan: lo completa.',
+      'Este trabajo merece un espacio propio y sagrado. Una sesión 1:1 puede ser el inicio de tu liberación económica y vital. ✨'
+    ]
+  },
+  {
+    keys: ['familia','mamá','papá','madre','padre','abuelo','abuela',
+           'ancestro','linaje','clan','transgeneracional','mis padres'],
+    msgs: [
+      'Lo familiar es siempre el primer territorio que moldeó nuestra forma de estar en el mundo. Muchas de las creencias que hoy te limitan no son tuyas: las recibiste como herencia de amor.',
+      'El primer paso es reconocer esas lealtades sin juzgarlas. Vinieron de amor. Y hoy puedes honrar ese amor y, al mismo tiempo, elegir diferente. Ambas cosas son posibles a la vez.',
+      'Si hay nudos transgeneracionales específicos que quieres explorar, te invito a agendarnos una sesión 1:1 para trabajarlo con más profundidad. 🌳'
+    ]
+  },
+  {
+    keys: ['trauma','herida','dolor','infancia','niña','me lastimaron',
+           'abuso','pasado','me hicieron'],
+    msgs: [
+      'Lo que describes merece ser sostenido con mucho cuidado y presencia. Las heridas tempranas tienen raíces profundas que afectan nuestra relación con el dinero, el éxito y el amor propio.',
+      'Gracias por tu valentía al nombrarlo. Eso ya es sanación. No estás rota: estás lista para sanar.',
+      'Este trabajo es muy delicado y merece un espacio contenido y seguro. Te invito a considerar una sesión 1:1 para trabajarlo con todo el cuidado que mereces. 💛'
+    ]
+  },
+  {
+    keys: ['sesión','contratar','trabajar contigo','cómo funciona',
+           'agenda','agendar','precio tuyo','cuánto cobras','quiero sesión'],
+    msgs: [
+      'Me alegra que quieras dar ese paso. Una sesión 1:1 conmigo es un espacio sagrado de 60-90 minutos donde trabajamos somática, sistémica y energéticamente tu situación específica.',
+      'Puedes explorar la calculadora en la pestaña "Don Divino" para entender la energía del merecimiento económico en tu propia práctica.',
+      'Escríbeme directamente cuando sientas el llamado. Estoy aquí para acompañarte en este proceso hermoso. 💛'
+    ]
+  },
+  {
+    keys: ['gracias','me ayudó','me ayudaste','bien','mejor','me siento mejor',
+           'perfecto','qué bueno','ayuda','claridad'],
+    msgs: [
+      'Qué alegría poder acompañarte en este camino. Cada paso que das hacia adentro es una semilla que germina en tu vida exterior.',
+      'Recuerda: la sanación no es lineal, y está bien estar exactamente donde estás hoy. Lo importante es que sigues moviéndote y eligiendo.',
+      'Aquí estaré siempre que necesites un espacio de reflexión o contención. 🌿'
+    ]
+  },
+  {
+    keys: ['procrastino','procrastinación','no avanzo','me bloqueo','bloqueo',
+           'paralizada','no arranco','no empiezo'],
+    msgs: [
+      'La procrastinación casi nunca es pereza. Suele ser miedo disfrazado: miedo al fracaso, al éxito, o a ser vista. O es el sistema nervioso en modo dorsal vagal, donde el cuerpo literalmente no puede arrancar.',
+      'Antes de exigirte más acción, pregúntate: ¿qué emoción estoy evitando? El bloqueo siempre protege algo.',
+      'Si este patrón es recurrente en tu vida profesional y económica, una sesión 1:1 puede ser el espacio para desenredar su raíz. 🌿'
+    ]
+  },
+  {
+    keys: ['cobrar','me da pena cobrar','pena cobrar','subir precios','mis precios',
+           'barato','muy barato','cobro poco'],
+    msgs: [
+      'Que te dé pena cobrar es una de las señales más claras de que hay una lealtad transgeneracional activa. "El dinero no es para nosotros", "no somos de cobrar mucho", "quién soy yo para pedir eso"... ¿Reconoces alguna de esas voces?',
+      'Subir tus precios no es avaricia: es reconocimiento. Y tu cliente que paga bien, también sana más. Hay dignidad en el intercambio justo.',
+      'Explora la calculadora en "Don Divino" para comenzar a ponerle número real a tu merecimiento. Y si quieres trabajar esto más profundo, una sesión 1:1 es el espacio ideal. ✨'
+    ]
+  }
+];
+
+const DEFAULTS = [
+  [
+    'Gracias por compartir eso conmigo. Te escucho y lo que traes tiene todo el sentido desde tu historia.',
+    'Recuerda que cada síntoma, cada miedo, cada bloqueo es una puerta de acceso a algo más profundo que está listo para sanar. No estás rota: estás en proceso.',
+    'Si sientes que lo que describes tiene raíces más profundas de lo que puedas explorar sola, una sesión 1:1 puede ser el espacio perfecto para sostenerlo juntas. 💛'
+  ],
+  [
+    'Lo que compartes me llega profundamente. El solo hecho de estar aquí, buscando y explorando, ya es un acto de valentía enorme.',
+    'El trabajo interior no es lineal, y está bien estar exactamente donde estás hoy. La presencia ya es sanación.',
+    'Si en algún momento sientes que quieres ir más profundo, una sesión 1:1 es el espacio donde podemos hacerlo con todo el cuidado que mereces. 🌿'
+  ],
+  [
+    'Entiendo lo que describes, y quiero que sepas que no estás sola en esto. Muchas mujeres pasan por momentos similares en su camino hacia la expansión y el merecimiento.',
+    'A veces los obstáculos más grandes son los maestros más importantes. ¿Qué crees que este momento te está enseñando sobre ti misma?',
+    'Si quieres explorar esto con más profundidad y presencia, una sesión 1:1 puede ser el espacio ideal para ti. 💛'
+  ]
+];
+
+let defIdx = 0;
+
+function getReply(msg) {
+  const m = msg.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const mn = msg.toLowerCase();
+  for (const r of REPLIES) {
+    if (r.keys.some(k => mn.includes(k) || m.includes(k.normalize('NFD').replace(/[\u0300-\u036f]/g, '')))) {
+      return r.msgs;
+    }
+  }
+  const d = DEFAULTS[defIdx % DEFAULTS.length];
+  defIdx++;
+  return d;
+}
+
+function mkRow(paragraphs, isUser) {
+  const row = document.createElement('div');
+  row.style.cssText = `display:flex;align-items:flex-start;gap:10px;
+    animation:fadeIn .35s ease;${isUser ? 'flex-direction:row-reverse;' : ''}`;
+
+  const av = document.createElement('div');
+  av.style.cssText = `width:34px;height:34px;border-radius:50%;
+    background:${isUser ? '#7E8B78' : '#C86D51'};
+    display:flex;align-items:center;justify-content:center;
+    color:white;flex-shrink:0;
+    font-family:${isUser ? "'Nunito'" : "'Cormorant Garamond'"};
+    font-size:${isUser ? '.6rem' : '1rem'};
+    font-weight:${isUser ? '700' : '400'};`;
+  av.textContent = isUser ? 'Tú' : 'C';
+
+  const bub = document.createElement('div');
+  bub.className = `bub ${isUser ? 'bub-u' : 'bub-c'}`;
+
+  if (Array.isArray(paragraphs)) {
+    bub.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+  } else {
+    bub.innerHTML = `<p>${paragraphs}</p>`;
+  }
+
+  row.appendChild(av);
+  row.appendChild(bub);
+  return row;
+}
+
+function mkTyping() {
+  const box = document.getElementById('chat-msgs');
+  const row = document.createElement('div');
+  row.id = 'typing-row';
+  row.style.cssText = 'display:flex;align-items:flex-start;gap:10px;';
+  row.innerHTML = `
+    <div style="width:34px;height:34px;border-radius:50%;background:#C86D51;
+      display:flex;align-items:center;justify-content:center;
+      color:white;font-family:'Cormorant Garamond',serif;font-size:1rem;flex-shrink:0;">C</div>
+    <div class="bub bub-c">
+      <div style="display:flex;gap:5px;align-items:center;padding:2px 0;">
+        <div class="d1" style="width:7px;height:7px;border-radius:50%;
+          background:#C86D51;opacity:.65;"></div>
+        <div class="d2" style="width:7px;height:7px;border-radius:50%;
+          background:#C86D51;opacity:.65;"></div>
+        <div class="d3" style="width:7px;height:7px;border-radius:50%;
+          background:#C86D51;opacity:.65;"></div>
+      </div>
+    </div>`;
+  box.appendChild(row);
+  box.scrollTop = box.scrollHeight;
+  return row;
+}
+
+function sendMsg() {
+  const inp = document.getElementById('chat-in');
+  const msg = inp.value.trim();
+  if (!msg) return;
+
+  inp.value = '';
+  inp.style.height = 'auto';
+
+  const box = document.getElementById('chat-msgs');
+  box.appendChild(mkRow([msg], true));
+  box.scrollTop = box.scrollHeight;
+
+  const typing = mkTyping();
+  const delay  = 900 + Math.random() * 700;
+
+  setTimeout(() => {
+    typing.remove();
+    box.appendChild(mkRow(getReply(msg), false));
+    box.scrollTop = box.scrollHeight;
+  }, delay);
+}
+
+function chatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMsg();
+  }
+}
+
+function autoGrow(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+}
+
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
