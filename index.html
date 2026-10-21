@@ -54,48 +54,52 @@
       </button>
     </section>
 
-    <!-- 2. PILARES SOMÁTICOS Y TRANSGENERACIONALES -->
+    <!-- 2. PILARES SOMÁTICOS Y TRANSGENERACIONALES (AHORA CON BOTONES INTERACTIVOS) -->
     <section class="space-y-3">
       <h2 class="text-lg font-serif font-bold text-stone-800 px-1">Rutas de Sanación & Reprocesamiento</h2>
 
       <div class="grid grid-cols-2 gap-3">
         <!-- Módulo 1 -->
-        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+        <button onclick="openSomaticModule('orden')" class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs text-left hover:border-terracota transition">
           <i data-lucide="git-merge" class="text-sage w-5 h-5 mb-2"></i>
           <h3 class="text-xs font-bold text-stone-800">Orden Sistémico</h3>
           <p class="text-[10px] text-stone-500 mt-1">Diagnóstico e Historia Ancestral para honrar tu linaje.</p>
-        </div>
+          <span class="text-[10px] text-terracota font-bold mt-2 inline-block">Ver ejercicio →</span>
+        </button>
 
         <!-- Módulo 2 -->
-        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+        <button onclick="openSomaticModule('nino')" class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs text-left hover:border-terracota transition">
           <i data-lucide="heart-handshake" class="text-sage w-5 h-5 mb-2"></i>
           <h3 class="text-xs font-bold text-stone-800">Niño Interior</h3>
           <p class="text-[10px] text-stone-500 mt-1">Desactivación de alarmas de peligro y contención sutil.</p>
-        </div>
+          <span class="text-[10px] text-terracota font-bold mt-2 inline-block">Ver ejercicio →</span>
+        </button>
 
         <!-- Módulo 3 -->
-        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+        <button onclick="openSomaticModule('reparentacion')" class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs text-left hover:border-terracota transition">
           <i data-lucide="activity" class="text-sage w-5 h-5 mb-2"></i>
           <h3 class="text-xs font-bold text-stone-800">Reparentación Somática</h3>
           <p class="text-[10px] text-stone-500 mt-1">Regulación biológica del sistema nervioso autónomo.</p>
-        </div>
+          <span class="text-[10px] text-terracota font-bold mt-2 inline-block">Ver ejercicio →</span>
+        </button>
 
         <!-- Módulo 4 -->
-        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+        <button onclick="openSomaticModule('identidad')" class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs text-left hover:border-terracota transition">
           <i data-lucide="refresh-cw" class="text-sage w-5 h-5 mb-2"></i>
           <h3 class="text-xs font-bold text-stone-800">Recalibración de Identidad</h3>
           <p class="text-[10px] text-stone-500 mt-1">Sintonización con la frecuencia de la mujer próspera.</p>
-        </div>
+          <span class="text-[10px] text-terracota font-bold mt-2 inline-block">Ver ejercicio →</span>
+        </button>
       </div>
     </section>
 
-    <!-- 3. ORÁCULOS & LECTURAS ASTRAL -->
+    <!-- 3. ORÁCULOS & LECTURA DE CARTA ASTRAL (GRATIS) -->
     <section class="bg-white p-5 rounded-3xl shadow-sm border border-stone-200 text-center space-y-4">
       <div class="inline-flex p-3 bg-stone-100 rounded-full text-terracota">
         <i data-lucide="sparkles" class="w-6 h-6"></i>
       </div>
       <h2 class="text-xl font-bold font-serif">Canalización & Guía Sutil</h2>
-      <p class="text-xs text-stone-600">Consulta los oráculos de los ángeles o solicita el mapa de tu Carta Astral.</p>
+      <p class="text-xs text-stone-600">Consulta los oráculos de los ángeles o accede a tu Carta Astral de bienvenida.</p>
 
       <!-- Pantalla Interactiva -->
       <div id="oracle-display" class="bg-stone-50 border border-stone-200 p-4 rounded-2xl min-h-[90px] flex items-center justify-center">
@@ -106,8 +110,8 @@
         <button onclick="drawAngelCard()" class="py-2.5 bg-stone-800 text-white text-xs rounded-xl font-bold hover:bg-stone-900">
           Oráculo Ángeles
         </button>
-        <button onclick="openPaymentModal('Lectura de Carta Astral', '47 €')" class="py-2.5 bg-sage text-white text-xs rounded-xl font-bold hover:opacity-90">
-          Carta Astral
+        <button onclick="openFreeAstrologyModal()" class="py-2.5 bg-sage text-white text-xs rounded-xl font-bold hover:opacity-90">
+          Carta Astral (Gratis)
         </button>
       </div>
     </section>
@@ -181,6 +185,50 @@
     </section>
 
   </main>
+
+  <!-- MODAL DE INFORMACIÓN Y EJERCICIOS SOMÁTICOS -->
+  <div id="somatic-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-stone-100 pb-2">
+        <h3 id="somatic-title" class="font-bold text-stone-800 text-base font-serif"></h3>
+        <button onclick="closeModal('somatic-modal')" class="text-stone-400">✕</button>
+      </div>
+      <div id="somatic-content" class="text-xs text-stone-600 space-y-3 leading-relaxed"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CARTA ASTRAL GRATUITA -->
+  <div id="astrology-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-stone-100 pb-2">
+        <h3 class="font-bold text-stone-800 text-base font-serif text-terracota">✨ Tu Mapa Astral de Bienvenida (Gratis)</h3>
+        <button onclick="closeModal('astrology-modal')" class="text-stone-400">✕</button>
+      </div>
+
+      <div class="text-xs text-stone-600 space-y-3">
+        <p>Tu Carta Astral es la huella energética del cielo en el instante en que realizaste tu primer aliento. En <strong>Raíces & Expansión</strong> la utilizamos como un diagnóstico sutil.</p>
+        
+        <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 space-y-2">
+          <span class="font-bold text-stone-800 block">🌌 Los 3 Pilares de tu Mapa Natal:</span>
+          <p>• <strong>Sol:</strong> La energía vital de tu esencia y tu propósito consciente.</p>
+          <p>• <strong>Luna:</strong> Tu mundo emocional, necesidades de seguridad y memoria materna.</p>
+          <p>• <strong>Ascendente:</strong> La puerta de entrada a tu cuerpo biológico y el camino de evolución.</p>
+        </div>
+
+        <div class="bg-amber-50 p-3 rounded-2xl border border-amber-200/60">
+          <p class="text-[11px] text-stone-700 font-semibold">
+            🎁 <strong>Solicita tu Análisis Astral Gratuito:</strong> Envía tus datos de nacimiento (Fecha, Hora exacta y Ciudad/País) directamente a Carla para preparar tu gráfico.
+          </p>
+        </div>
+
+        <a href="https://wa.me/584144031678?text=Hola%20Carla,%20quiero%20solicitar%20mi%20An%C3%A1lisis%20de%20Carta%20Astral%20Gratuito." 
+           target="_blank" 
+           class="block text-center w-full py-3 bg-terracota text-white text-xs font-bold rounded-xl shadow-sm">
+          Solicitar mi Carta Astral por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL DE PAGO Y REPORTES -->
   <div id="payment-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
@@ -314,6 +362,69 @@
     let paymentReports = [];
     let validCodes = JSON.parse(localStorage.getItem('raices_codes') || '{}');
 
+    // Módulos Somáticos
+    const somaticData = {
+      orden: {
+        title: "🌿 Orden Sistémico & Diagnóstico Ancestral",
+        content: `
+          <p><strong>Diagnóstico:</strong> Muchas veces cargamos con deudas, culpas o pesos emocionales que no nos pertenecen, sino a ancestros excluidos de nuestro linaje.</p>
+          <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200">
+            <span class="font-bold text-terracota block mb-1">🧘‍♀️ Ejercicio Somático Diario:</span>
+            <p>1. Coloca ambas manos sobre tu pecho y siente tus pies firmes en la tierra.</p>
+            <p>2. Cierra los ojos y visualiza detrás de tu hombro izquierdo a tu madre y detras de tu hombro derecho a tu padre.</p>
+            <p>3. Inhala profundo y repite internamente: <em>«Honro su historia, tomo la vida que me dieron y elijo hacer algo próspero con ella. Lo de ustedes se queda con ustedes, lo mío me pertenece.»</em></p>
+          </div>
+        `
+      },
+      nino: {
+        title: "🧸 Niño Interior & Desactivación de Alarmas",
+        content: `
+          <p><strong>Diagnóstico:</strong> Cuando sientes ansiedad o miedo repentino ante la escasez o el rechazo, no es tu versión adulta la que reacciona, sino tu niña/o interior sintiéndose desprotegida.</p>
+          <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200">
+            <span class="font-bold text-terracota block mb-1">🧘‍♀️ Ejercicio Somático Diario:</span>
+            <p>1. Cruza tus brazos sobre el pecho abrazándote suavemente (Abrazo de Mariposa).</p>
+            <p>2. Da pequeños toques alternados en tus hombros mientras respiras lento.</p>
+            <p>3. Dile a tu niña interior: <em>«Ahora yo soy la adulta a cargo. Estás a salvo conmigo, no hay peligro en este instante.»</em></p>
+          </div>
+        `
+      },
+      reparentacion: {
+        title: "🌊 Reparentación Somática & Regulación",
+        content: `
+          <p><strong>Diagnóstico:</strong> El sistema nervioso desregulado mantiene al cuerpo atrapado en estados de 'lucha o huida' o 'bloqueo/congelamiento', impidiendo la expansión económica.</p>
+          <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200">
+            <span class="font-bold text-terracota block mb-1">🧘‍♀️ Ejercicio Somático Diario:</span>
+            <p>1. Coloca una mano en la frente y la otra en el centro de tu pecho.</p>
+            <p>2. Exhala soltando un suspiro audible por la boca (sonido HAAA).</p>
+            <p>3. Permite que el peso de tu cuerpo se entregue por completo al asiento. Siente el soporte físico del plano material.</p>
+          </div>
+        `
+      },
+      identidad: {
+        title: "👑 Recalibración de Identidad & Merecimiento",
+        content: `
+          <p><strong>Diagnóstico:</strong> Para sostener mayores niveles de abundancia es necesario recalibrar la autoimagen y soltar la lealtad al dolor o al sacrificio familiar.</p>
+          <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200">
+            <span class="font-bold text-terracota block mb-1">🧘‍♀️ Ejercicio Somático Diario:</span>
+            <p>1. Mantén la espalda recta y las palmas de las manos abiertas hacia arriba sobre tu regazo.</p>
+            <p>2. Visualiza una luz dorada descendiendo e iluminando cada una de tus células.</p>
+            <p>3. Sintoniza con esta certeza: <em>«No necesito sufrir para pertenecer. Recibo la prosperidad en nombre de todo mi clan.»</em></p>
+          </div>
+        `
+      }
+    };
+
+    function openSomaticModule(key) {
+      const data = somaticData[key];
+      document.getElementById('somatic-title').innerText = data.title;
+      document.getElementById('somatic-content').innerHTML = data.content;
+      document.getElementById('somatic-modal').classList.remove('hidden');
+    }
+
+    function openFreeAstrologyModal() {
+      document.getElementById('astrology-modal').classList.remove('hidden');
+    }
+
     // Oráculo
     const angelMessages = [
       "«El Ángel de la Claridad ilumina tu sistema. Todo orden que restableces en ti, beneficia a siete generaciones.»",
@@ -351,7 +462,7 @@
       openPaymentModal(selectedProgram, selectedPrice);
     }
 
-    // Reporte de Pagos por el Usuario
+    // Reporte de Pagos
     function submitPaymentReport(e) {
       e.preventDefault();
       const name = document.getElementById('user-name').value;
