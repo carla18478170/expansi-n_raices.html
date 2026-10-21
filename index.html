@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raíces & Expansión | Membresía y Servicios</title>
+  <title>Raíces & Expansión | Altar & Escuela Somática</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { background-color: #FDFBF7; color: #2C2523; font-family: sans-serif; }
+    body { background-color: #FDFBF7; color: #2C2523; font-family: 'Nunito', sans-serif; }
+    h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; }
     .bg-terracota { background-color: #C86D51; }
     .text-terracota { color: #C86D51; }
     .border-terracota { border-color: #C86D51; }
@@ -15,135 +17,422 @@
     .text-sage { color: #7E8B78; }
   </style>
 </head>
-<body class="pb-24">
+<body class="pb-28">
 
-  <!-- Header -->
-  <header class="text-center py-6 px-4 bg-white shadow-sm border-b border-stone-200">
-    <h1 class="text-2xl font-serif text-terracota font-bold">Raíces & Expansión</h1>
-    <p class="text-sm text-stone-600">Sana tu origen, despliega tu abundancia</p>
+  <!-- Header / Altar Superior -->
+  <header class="text-center py-6 px-4 bg-white shadow-sm border-b border-stone-200 relative">
+    <span class="text-[10px] uppercase tracking-widest text-stone-500 font-semibold block mb-1">Ecosistema Holístico Transgeneracional</span>
+    <h1 class="text-3xl font-bold text-terracota">Raíces & Expansión</h1>
+    <p class="text-xs text-stone-600 mt-1">Sana tu origen, desactiva alarmas somáticas y despliega tu abundancia.</p>
+    
+    <!-- Botón de Acceso al Dashboard Administrativo -->
+    <button onclick="toggleDashboard()" class="absolute right-3 top-4 text-stone-400 hover:text-stone-700 p-2">
+      <i data-lucide="shield-check" class="w-5 h-5"></i>
+    </button>
   </header>
 
-  <!-- Contenedor Principal -->
+  <!-- Navegación Principal -->
   <main class="max-w-md mx-auto p-4 space-y-6">
 
-    <!-- TARJETA DESTACADA: MEMBRESÍA Y REGISTRO -->
-    <section class="bg-amber-50/60 border-2 border-terracota/30 p-5 rounded-2xl shadow-sm relative overflow-hidden">
-      <div class="absolute -right-4 -top-4 bg-terracota text-white text-[10px] font-bold uppercase tracking-widest py-1 px-4 rotate-12 shadow-sm">
-        Suscripción
-      </div>
-
+    <!-- 1. MEMBRESÍA DEL CLUB RAÍCES & EXPANSIÓN -->
+    <section class="bg-amber-50/70 border-2 border-terracota/30 p-5 rounded-3xl shadow-sm relative overflow-hidden">
       <div class="flex items-center space-x-2 text-terracota mb-2">
         <i data-lucide="crown" class="w-5 h-5"></i>
-        <h2 class="text-lg font-serif font-bold">Membresía Raíces & Expansión</h2>
+        <h2 class="text-xl font-bold font-serif">Club Raíces & Expansión</h2>
       </div>
-
-      <p class="text-xs text-stone-600 leading-relaxed">
-        Un espacio diario para autorregular tu sistema nervioso, liberar patrones ancestrales y conectar con tu poder de merecimiento.
+      <p class="text-xs text-stone-700 leading-relaxed mb-3">
+        Acceso exclusivo a la tribu, acompañamiento diario de autorregulación y ejercicios de integración.
       </p>
 
-      <!-- Badge de 3 días de regalo -->
-      <div class="mt-3 bg-white/80 p-2.5 rounded-xl border border-stone-200 flex items-center space-x-2">
-        <i data-lucide="gift" class="text-sage w-5 h-5 flex-shrink-0"></i>
-        <p class="text-xs text-stone-700 font-medium">
-          Comienza hoy con <span class="text-terracota font-bold">3 Días de Inmersión de Regalo</span>.
-        </p>
+      <div class="bg-white p-3 rounded-2xl border border-stone-200 flex justify-between items-center mb-4">
+        <span class="text-xs font-bold text-stone-800">Suscripción Mensual:</span>
+        <span class="text-lg font-bold text-terracota">9.99 € / mes</span>
       </div>
 
-      <!-- Bonos Exclusivos -->
-      <div class="mt-4 space-y-2">
-        <span class="text-xs font-bold text-stone-800 uppercase tracking-wide block">✨ Bonos de Bienvenida Incluidos:</span>
-        <ul class="text-xs text-stone-600 space-y-1 pl-1">
-          <li class="flex items-center"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-sage mr-1.5 inline"></i> <strong>Diagnóstico Somático-Sistémico inicial.</strong></li>
-          <li class="flex items-center"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-sage mr-1.5 inline"></i> Audios de Limpieza Energética y Meditaciones.</li>
-          <li class="flex items-center"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-sage mr-1.5 inline"></i> Tarifa preferencial en mentorías y lecturas.</li>
-        </ul>
-      </div>
-
-      <!-- Precio y Botón de Registro -->
-      <div class="mt-5 pt-3 border-t border-stone-200 flex items-center justify-between">
-        <div>
-          <span class="text-2xl font-bold text-stone-900">$8</span>
-          <span class="text-xs text-stone-500"> / mes</span>
-        </div>
-        <a href="https://wa.me/" target="_blank" class="py-2.5 px-5 bg-terracota text-white text-xs rounded-xl font-bold hover:opacity-90 transition shadow-sm">
-          Activar Inmersión de Regalo
-        </a>
-      </div>
-    </section>
-
-    <!-- MÓDULO: ORÁCULO & ÁNGELES -->
-    <section class="bg-white p-5 rounded-2xl shadow-sm border border-stone-200 text-center">
-      <div class="inline-flex p-3 bg-stone-100 rounded-full mb-3 text-terracota">
-        <i data-lucide="sparkles"></i>
-      </div>
-      <h2 class="text-lg font-serif font-semibold">Pregúntale al Oráculo / Ángeles</h2>
-      <p class="text-xs text-stone-600 mt-1">Canalización y guía sutil para momentos de duda o bloqueo emocional.</p>
-      <button onclick="alert('Conectando con la guía del Oráculo...')" class="mt-4 w-full py-2.5 bg-terracota text-white text-sm rounded-xl font-medium hover:opacity-90">
-        Consultar el Oráculo
+      <button onclick="openPaymentModal('Club Raíces & Expansión', '9.99 €')" class="w-full py-3 bg-terracota text-white text-xs font-bold rounded-xl text-center shadow-sm hover:opacity-90">
+        Unirme al Club de Suscriptoras
       </button>
     </section>
 
-    <!-- MÓDULO: CARTA ASTRAL & LIMPIEZAS ENERGÉTICAS -->
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 text-center">
-        <i data-lucide="compass" class="mx-auto text-sage mb-2"></i>
-        <h3 class="text-sm font-semibold">Carta Astral</h3>
-        <p class="text-xs text-stone-500 mt-1">Mapa natal y códigos de vida.</p>
-        <button class="mt-3 text-xs text-terracota font-medium underline">Saber más</button>
-      </div>
+    <!-- 2. PILARES SOMÁTICOS Y TRANSGENERACIONALES -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-serif font-bold text-stone-800 px-1">Rutas de Sanación & Reprocesamiento</h2>
 
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 text-center">
-        <i data-lucide="flame" class="mx-auto text-sage mb-2"></i>
-        <h3 class="text-sm font-semibold">Limpieza Energética</h3>
-        <p class="text-xs text-stone-500 mt-1">Armonización y desbloqueo.</p>
-        <button class="mt-3 text-xs text-terracota font-medium underline">Saber más</button>
-      </div>
-    </div>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Módulo 1 -->
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+          <i data-lucide="git-merge" class="text-sage w-5 h-5 mb-2"></i>
+          <h3 class="text-xs font-bold text-stone-800">Orden Sistémico</h3>
+          <p class="text-[10px] text-stone-500 mt-1">Diagnóstico e Historia Ancestral para honrar tu linaje.</p>
+        </div>
 
-    <!-- MÓDULO: MASTERCLASSES -->
-    <section class="bg-white p-5 rounded-2xl shadow-sm border border-stone-200">
-      <div class="flex items-center space-x-3 mb-2">
-        <i data-lucide="book-open" class="text-terracota"></i>
-        <h2 class="text-base font-serif font-semibold">Masterclasses Terapéuticas</h2>
-      </div>
-      <p class="text-xs text-stone-600">Aprende a regular tu sistema nervioso y sanar la lealtad con el dolor ancestral.</p>
-      <div class="mt-3 bg-stone-50 p-3 rounded-xl border border-stone-100 text-xs">
-        <span class="font-semibold block text-stone-800">Masterclass: Sanando la Niña Interior</span>
-        <span class="text-stone-500">Grabación + Cuaderno de Integración Somática.</span>
+        <!-- Módulo 2 -->
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+          <i data-lucide="heart-handshake" class="text-sage w-5 h-5 mb-2"></i>
+          <h3 class="text-xs font-bold text-stone-800">Niño Interior</h3>
+          <p class="text-[10px] text-stone-500 mt-1">Desactivación de alarmas de peligro y contención sutil.</p>
+        </div>
+
+        <!-- Módulo 3 -->
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+          <i data-lucide="activity" class="text-sage w-5 h-5 mb-2"></i>
+          <h3 class="text-xs font-bold text-stone-800">Reparentación Somática</h3>
+          <p class="text-[10px] text-stone-500 mt-1">Regulación biológica del sistema nervioso autónomo.</p>
+        </div>
+
+        <!-- Módulo 4 -->
+        <div class="bg-white p-4 rounded-2xl border border-stone-200 shadow-xs">
+          <i data-lucide="refresh-cw" class="text-sage w-5 h-5 mb-2"></i>
+          <h3 class="text-xs font-bold text-stone-800">Recalibración de Identidad</h3>
+          <p class="text-[10px] text-stone-500 mt-1">Sintonización con la frecuencia de la mujer próspera.</p>
+        </div>
       </div>
     </section>
 
-    <!-- MÓDULO: MENTORÍAS PROFUNDAS -->
-    <section class="bg-stone-900 text-white p-5 rounded-2xl shadow-md space-y-4">
-      <h2 class="text-lg font-serif text-amber-200 font-semibold text-center">Acompañamiento Profundo</h2>
-      
-      <!-- Mentoría Grupal -->
-      <div class="bg-stone-800 p-4 rounded-xl border border-stone-700">
-        <div class="flex justify-between items-center">
-          <h3 class="text-sm font-semibold text-stone-200">Mentoría Grupal</h3>
-          <span class="text-xs bg-sage px-2 py-1 rounded-md text-white">$120 USD</span>
-        </div>
-        <p class="text-xs text-stone-400 mt-1">Sanación en tribu para transformar lealtades invisibles.</p>
+    <!-- 3. ORÁCULOS & LECTURAS ASTRAL -->
+    <section class="bg-white p-5 rounded-3xl shadow-sm border border-stone-200 text-center space-y-4">
+      <div class="inline-flex p-3 bg-stone-100 rounded-full text-terracota">
+        <i data-lucide="sparkles" class="w-6 h-6"></i>
+      </div>
+      <h2 class="text-xl font-bold font-serif">Canalización & Guía Sutil</h2>
+      <p class="text-xs text-stone-600">Consulta los oráculos de los ángeles o solicita el mapa de tu Carta Astral.</p>
+
+      <!-- Pantalla Interactiva -->
+      <div id="oracle-display" class="bg-stone-50 border border-stone-200 p-4 rounded-2xl min-h-[90px] flex items-center justify-center">
+        <p class="text-xs text-stone-400 italic">Haz clic abajo para recibir tu mensaje guía...</p>
       </div>
 
-      <!-- Mentoría VIP Individual -->
-      <div class="bg-stone-800 p-4 rounded-xl border border-stone-700">
-        <div class="flex justify-between items-center">
-          <h3 class="text-sm font-semibold text-amber-200">Mentoría Individual VIP</h3>
-          <span class="text-xs bg-terracota px-2 py-1 rounded-md text-white">$300 - $400 USD</span>
-        </div>
-        <p class="text-xs text-stone-400 mt-1">4 a 6 semanas 1 a 1 de inmersión transgeneracional y somática.</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="drawAngelCard()" class="py-2.5 bg-stone-800 text-white text-xs rounded-xl font-bold hover:bg-stone-900">
+          Oráculo Ángeles
+        </button>
+        <button onclick="openPaymentModal('Lectura de Carta Astral', '47 €')" class="py-2.5 bg-sage text-white text-xs rounded-xl font-bold hover:opacity-90">
+          Carta Astral
+        </button>
+      </div>
+    </section>
+
+    <!-- 4. MENTORÍAS Y FORMACIONES CON CANDADO -->
+    <section class="space-y-3">
+      <div class="flex justify-between items-center px-1">
+        <h2 class="text-lg font-serif font-bold text-stone-800">Formaciones Exclusivas</h2>
+        <span class="text-[10px] text-stone-500 font-semibold">🔒 Requiere Acceso</span>
       </div>
 
-      <a href="https://wa.me/" target="_blank" class="block text-center w-full py-3 bg-amber-200 text-stone-900 text-sm font-bold rounded-xl mt-2">
-        Agendar Mentoría por WhatsApp
-      </a>
+      <!-- Volviendo al Origen -->
+      <div class="bg-white p-4 rounded-2xl border border-stone-200 flex justify-between items-center">
+        <div>
+          <div class="flex items-center space-x-1.5 text-stone-800">
+            <i data-lucide="lock" class="w-4 h-4 text-terracota"></i>
+            <h3 class="text-xs font-bold">Volviendo al Origen</h3>
+          </div>
+          <p class="text-[10px] text-stone-500 mt-0.5">Sanación del vínculo materno y memoria celular.</p>
+          <span class="text-xs font-bold text-stone-800 block mt-1">47 €</span>
+        </div>
+        <button onclick="openUnlockModal('Volviendo al Origen', '47 €')" class="py-2 px-3 bg-stone-100 text-stone-800 text-xs font-bold rounded-xl border border-stone-300">
+          Desbloquear
+        </button>
+      </div>
+
+      <!-- Sexualidad Sagrada -->
+      <div class="bg-white p-4 rounded-2xl border border-stone-200 flex justify-between items-center">
+        <div>
+          <div class="flex items-center space-x-1.5 text-stone-800">
+            <i data-lucide="lock" class="w-4 h-4 text-terracota"></i>
+            <h3 class="text-xs font-bold">Sexualidad Sagrada</h3>
+          </div>
+          <p class="text-[10px] text-stone-500 mt-0.5">Activación de la energía vital y gozo somático.</p>
+          <span class="text-xs font-bold text-stone-800 block mt-1">69 €</span>
+        </div>
+        <button onclick="openUnlockModal('Sexualidad Sagrada', '69 €')" class="py-2 px-3 bg-stone-100 text-stone-800 text-xs font-bold rounded-xl border border-stone-300">
+          Desbloquear
+        </button>
+      </div>
+
+      <!-- El Código de Merecimiento -->
+      <div class="bg-white p-4 rounded-2xl border border-stone-200 flex justify-between items-center">
+        <div>
+          <div class="flex items-center space-x-1.5 text-stone-800">
+            <i data-lucide="lock" class="w-4 h-4 text-terracota"></i>
+            <h3 class="text-xs font-bold">El Código de Merecimiento</h3>
+          </div>
+          <p class="text-[10px] text-stone-500 mt-0.5">Mentoría Grupal de Inmersión Transgeneracional.</p>
+          <span class="text-xs font-bold text-stone-800 block mt-1">297 €</span>
+        </div>
+        <button onclick="openUnlockModal('El Código de Merecimiento', '297 €')" class="py-2 px-3 bg-stone-100 text-stone-800 text-xs font-bold rounded-xl border border-stone-300">
+          Desbloquear
+        </button>
+      </div>
+
+      <!-- Mentoría VIP 1 a 1 -->
+      <div class="bg-stone-900 text-white p-5 rounded-3xl space-y-3">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-[9px] bg-amber-200 text-stone-900 font-bold px-2 py-0.5 rounded-md uppercase">Alto Valor</span>
+            <h3 class="text-base font-serif font-bold text-amber-100 mt-1">Mentoría Personalizada 1 a 1</h3>
+          </div>
+          <span class="text-sm font-bold text-amber-200">997 €</span>
+        </div>
+        <p class="text-xs text-stone-400">Ruta exacta de transformación de 21 días con acompañamiento VIP exclusivo.</p>
+        <button onclick="openUnlockModal('Mentoría Personalizada 1 a 1 (21 Días)', '997 €')" class="w-full py-3 bg-amber-200 text-stone-900 text-xs font-bold rounded-xl hover:bg-amber-300">
+          Solicitar Acceso VIP
+        </button>
+      </div>
     </section>
 
   </main>
 
+  <!-- MODAL DE PAGO Y REPORTES -->
+  <div id="payment-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-stone-100 pb-2">
+        <h3 id="modal-title" class="font-bold text-stone-800 text-sm">Realizar Pago</h3>
+        <button onclick="closeModal('payment-modal')" class="text-stone-400">✕</button>
+      </div>
+
+      <div class="text-xs space-y-3 bg-stone-50 p-3 rounded-2xl border border-stone-200">
+        <p class="font-bold text-stone-700">Cuentas Autorizadas:</p>
+        <div>
+          <span class="font-bold text-terracota block">🇻🇪 Pago Móvil:</span>
+          <p>Banco: 0102 (Banco de Venezuela) | V-18478170</p>
+          <p>Teléfono: 04144031678</p>
+        </div>
+        <div>
+          <span class="font-bold text-blue-600 block">💙 PayPal:</span>
+          <p>jodasan@gmail.com</p>
+        </div>
+        <div>
+          <span class="font-bold text-amber-600 block">💛 Binance Pay:</span>
+          <p>jodasan@gmail.com</p>
+        </div>
+      </div>
+
+      <!-- Formulario para enviar comprobante -->
+      <form onsubmit="submitPaymentReport(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-stone-600 font-bold mb-1">Tu Nombre Completo:</label>
+          <input type="text" id="user-name" required class="w-full p-2.5 rounded-xl border border-stone-300 bg-stone-50" placeholder="Ej: María Rodríguez">
+        </div>
+        <div>
+          <label class="block text-stone-600 font-bold mb-1">Método Utilizado:</label>
+          <select id="user-method" class="w-full p-2.5 rounded-xl border border-stone-300 bg-stone-50">
+            <option>Pago Móvil</option>
+            <option>PayPal</option>
+            <option>Binance Pay</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-stone-600 font-bold mb-1">Número de Referencia:</label>
+          <input type="text" id="user-ref" required class="w-full p-2.5 rounded-xl border border-stone-300 bg-stone-50" placeholder="Ej: 987654">
+        </div>
+        <button type="submit" class="w-full py-3 bg-terracota text-white font-bold rounded-xl shadow-sm">
+          Reportar Pago para Activar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE DESBLOQUEO / INGRESO DE CÓDIGO -->
+  <div id="unlock-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4">
+      <div class="flex justify-between items-center border-b border-stone-100 pb-2">
+        <h3 id="unlock-title" class="font-bold text-stone-800 text-sm">Ingresar Código de Acceso</h3>
+        <button onclick="closeModal('unlock-modal')" class="text-stone-400">✕</button>
+      </div>
+
+      <p class="text-xs text-stone-600">Si ya adquiriste este programa, ingresa tu código de acceso para desbloquear el contenido:</p>
+
+      <div class="space-y-3">
+        <input type="text" id="access-code-input" class="w-full p-3 rounded-xl border border-stone-300 text-center font-bold tracking-widest uppercase bg-stone-50" placeholder="CÓDIGO-123">
+        <button onclick="verifyCode()" class="w-full py-3 bg-stone-800 text-white font-bold rounded-xl text-xs">
+          Validar & Entrar
+        </button>
+      </div>
+
+      <div class="pt-2 border-t border-stone-100 text-center">
+        <p class="text-[11px] text-stone-500">¿Aún no tienes acceso?</p>
+        <button onclick="switchToPayment()" class="text-xs text-terracota font-bold underline mt-1">Comprar / Reportar Pago</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD ADMINISTRATIVO (PANEL DE CONTROL DE CARLA) -->
+  <div id="dashboard-modal" class="fixed inset-0 bg-stone-900 text-stone-100 hidden z-50 p-4 overflow-y-auto">
+    <div class="max-w-md mx-auto space-y-4">
+      <div class="flex justify-between items-center border-b border-stone-700 pb-3">
+        <div>
+          <h2 class="text-lg font-serif font-bold text-amber-200">Dashboard Administrativo</h2>
+          <p class="text-[10px] text-stone-400">Panel de Control de Pagos & Accesos</p>
+        </div>
+        <button onclick="toggleDashboard()" class="text-stone-400 text-xl">✕</button>
+      </div>
+
+      <!-- Métricas -->
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-stone-800 p-3 rounded-2xl border border-stone-700">
+          <span class="text-[10px] text-stone-400 block">Pagos Pendientes</span>
+          <span id="pending-count" class="text-xl font-bold text-amber-200">0</span>
+        </div>
+        <div class="bg-stone-800 p-3 rounded-2xl border border-stone-700">
+          <span class="text-[10px] text-stone-400 block">Accesos Generados</span>
+          <span id="active-count" class="text-xl font-bold text-sage">0</span>
+        </div>
+      </div>
+
+      <!-- Generador de Códigos -->
+      <div class="bg-stone-800 p-4 rounded-2xl border border-stone-700 space-y-2">
+        <h3 class="text-xs font-bold text-amber-100">Generar Código de Acceso Manual</h3>
+        <select id="dash-program-select" class="w-full p-2 bg-stone-900 border border-stone-700 rounded-xl text-xs text-stone-200">
+          <option>Club Raíces & Expansión (9.99€)</option>
+          <option>Volviendo al Origen (47€)</option>
+          <option>Sexualidad Sagrada (69€)</option>
+          <option>El Código de Merecimiento (297€)</option>
+          <option>Mentoría Personalizada VIP (997€)</option>
+        </select>
+        <button onclick="generateAccessCode()" class="w-full py-2 bg-terracota text-white text-xs font-bold rounded-xl">
+          Generar Código
+        </button>
+        <div id="generated-code-display" class="hidden p-2 bg-stone-900 border border-stone-700 rounded-xl text-center font-bold text-amber-200 text-xs"></div>
+      </div>
+
+      <!-- Lista de Pagos Reportados -->
+      <div class="space-y-2">
+        <h3 class="text-xs font-bold text-stone-300">Reportes de Pago Recibidos:</h3>
+        <div id="payments-list" class="space-y-2 text-xs">
+          <p class="text-stone-500 italic text-[11px] text-center py-4">No hay pagos pendientes de verificación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS Y LÓGICA DE LA APP -->
   <script>
     lucide.createIcons();
+
+    let selectedProgram = '';
+    let selectedPrice = '';
+    let paymentReports = [];
+    let validCodes = JSON.parse(localStorage.getItem('raices_codes') || '{}');
+
+    // Oráculo
+    const angelMessages = [
+      "«El Ángel de la Claridad ilumina tu sistema. Todo orden que restableces en ti, beneficia a siete generaciones.»",
+      "«El Ángel del Merecimiento sostiene tus manos. Estás lista para recibir sin culpa ni sacrificio.»",
+      "«El Ángel de la Paz Somática desactiva tus alarmas. Tu cuerpo es un lugar seguro para habitar.»"
+    ];
+
+    function drawAngelCard() {
+      const display = document.getElementById('oracle-display');
+      const random = angelMessages[Math.floor(Math.random() * angelMessages.length)];
+      display.innerHTML = `<p class="text-xs text-stone-800 font-serif italic font-bold animate-fade-in">${random}</p>`;
+    }
+
+    // Modal Control
+    function openPaymentModal(program, price) {
+      selectedProgram = program;
+      selectedPrice = price;
+      document.getElementById('modal-title').innerText = `Pago: ${program} (${price})`;
+      document.getElementById('payment-modal').classList.remove('hidden');
+    }
+
+    function openUnlockModal(program, price) {
+      selectedProgram = program;
+      selectedPrice = price;
+      document.getElementById('unlock-title').innerText = `Acceso a: ${program}`;
+      document.getElementById('unlock-modal').classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function switchToPayment() {
+      closeModal('unlock-modal');
+      openPaymentModal(selectedProgram, selectedPrice);
+    }
+
+    // Reporte de Pagos por el Usuario
+    function submitPaymentReport(e) {
+      e.preventDefault();
+      const name = document.getElementById('user-name').value;
+      const method = document.getElementById('user-method').value;
+      const ref = document.getElementById('user-ref').value;
+
+      const report = { name, method, ref, program: selectedProgram, price: selectedPrice, date: new Date().toLocaleTimeString() };
+      paymentReports.push(report);
+      
+      alert(`¡Gracias ${name}! Tu reporte de pago por ${selectedProgram} ha sido recibido. Carla verificará tu pago y te enviará tu código de acceso.`);
+      closeModal('payment-modal');
+      updateDashboard();
+    }
+
+    // Validar Código
+    function verifyCode() {
+      const code = document.getElementById('access-code-input').value.trim().toUpperCase();
+      if (validCodes[code]) {
+        alert(`¡Código Válido! Bienvenido/a a: ${validCodes[code]}`);
+        closeModal('unlock-modal');
+      } else {
+        alert('Código incorrecto o no verificado. Por favor contacta con administración.');
+      }
+    }
+
+    // Dashboard Toggle
+    function toggleDashboard() {
+      const dash = document.getElementById('dashboard-modal');
+      dash.classList.toggle('hidden');
+      updateDashboard();
+    }
+
+    // Generador de Códigos
+    function generateAccessCode() {
+      const prog = document.getElementById('dash-program-select').value;
+      const code = 'RAICES-' + Math.floor(1000 + Math.random() * 9000);
+      validCodes[code] = prog;
+      localStorage.setItem('raices_codes', JSON.stringify(validCodes));
+
+      const display = document.getElementById('generated-code-display');
+      display.innerText = `Código Creado: ${code} (${prog})`;
+      display.classList.remove('hidden');
+      updateDashboard();
+    }
+
+    // Actualizar Panel
+    function updateDashboard() {
+      document.getElementById('pending-count').innerText = paymentReports.length;
+      document.getElementById('active-count').innerText = Object.keys(validCodes).length;
+
+      const list = document.getElementById('payments-list');
+      if (paymentReports.length === 0) {
+        list.innerHTML = `<p class="text-stone-500 italic text-[11px] text-center py-4">No hay pagos pendientes por verificar.</p>`;
+        return;
+      }
+
+      list.innerHTML = paymentReports.map((r, i) => `
+        <div class="bg-stone-800 p-3 rounded-xl border border-stone-700 space-y-1">
+          <div class="flex justify-between font-bold text-amber-200">
+            <span>${r.name}</span>
+            <span>${r.price}</span>
+          </div>
+          <p class="text-stone-300">${r.program}</p>
+          <p class="text-stone-400 font-mono">${r.method} - Ref: ${r.ref}</p>
+          <button onclick="approvePayment(${i})" class="w-full mt-2 py-1 bg-sage text-white text-[10px] font-bold rounded-lg">
+            Aprobar & Generar Código
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function approvePayment(index) {
+      const r = paymentReports[index];
+      const code = 'RAICES-' + Math.floor(1000 + Math.random() * 9000);
+      validCodes[code] = r.program;
+      localStorage.setItem('raices_codes', JSON.stringify(validCodes));
+
+      alert(`Pago Aprobado para ${r.name}.\nCódigo generado: ${code}\nEnvíaselo a la alumna por WhatsApp para que desbloquee su contenido.`);
+      paymentReports.splice(index, 1);
+      updateDashboard();
+    }
   </script>
 </body>
 </html>
