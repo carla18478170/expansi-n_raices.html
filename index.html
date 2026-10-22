@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -54,26 +55,7 @@
       </button>
     </section>
 
-    <!-- 2. CALCULADORA DEL MERECIMIENTO & REGULACIÓN DEL SISTEMA NERVIOSO -->
-    <section class="grid grid-cols-2 gap-3">
-      <!-- Calculadora -->
-      <button onclick="openMeritCalculator()" class="bg-amber-100/60 p-4 rounded-2xl border border-amber-200 shadow-xs text-left hover:border-terracota transition">
-        <i data-lucide="calculator" class="text-terracota w-6 h-6 mb-2"></i>
-        <h3 class="text-xs font-bold text-stone-800 font-serif text-sm">Calculadora del Merecimiento</h3>
-        <p class="text-[10px] text-stone-600 mt-1">Evalúa tu nivel de apertura a la abundancia.</p>
-        <span class="text-[10px] text-terracota font-bold mt-2 inline-block">Calcular ahora →</span>
-      </button>
-
-      <!-- Regulación SN -->
-      <button onclick="openSNModal()" class="bg-sage/10 p-4 rounded-2xl border border-sage/30 shadow-xs text-left hover:border-sage transition">
-        <i data-lucide="wind" class="text-sage w-6 h-6 mb-2"></i>
-        <h3 class="text-xs font-bold text-stone-800 font-serif text-sm">Regulación del Sistema Nervioso</h3>
-        <p class="text-[10px] text-stone-600 mt-1">Técnicas somáticas para desactivar el estrés.</p>
-        <span class="text-[10px] text-sage font-bold mt-2 inline-block">Ver prácticas →</span>
-      </button>
-    </section>
-
-    <!-- 3. PILARES SOMÁTICOS Y TRANSGENERACIONALES -->
+    <!-- 2. PILARES SOMÁTICOS Y TRANSGENERACIONALES (AHORA CON BOTONES INTERACTIVOS) -->
     <section class="space-y-3">
       <h2 class="text-lg font-serif font-bold text-stone-800 px-1">Rutas de Sanación & Reprocesamiento</h2>
 
@@ -112,7 +94,7 @@
       </div>
     </section>
 
-    <!-- 4. ORÁCULOS & LECTURA DE CARTA ASTRAL (GRATIS) -->
+    <!-- 3. ORÁCULOS & LECTURA DE CARTA ASTRAL (GRATIS) -->
     <section class="bg-white p-5 rounded-3xl shadow-sm border border-stone-200 text-center space-y-4">
       <div class="inline-flex p-3 bg-stone-100 rounded-full text-terracota">
         <i data-lucide="sparkles" class="w-6 h-6"></i>
@@ -135,7 +117,7 @@
       </div>
     </section>
 
-    <!-- 5. MENTORÍAS Y FORMACIONES CON CANDADO -->
+    <!-- 4. MENTORÍAS Y FORMACIONES CON CANDADO -->
     <section class="space-y-3">
       <div class="flex justify-between items-center px-1">
         <h2 class="text-lg font-serif font-bold text-stone-800">Formaciones Exclusivas</h2>
@@ -204,85 +186,6 @@
     </section>
 
   </main>
-
-  <!-- MODAL: CALCULADORA DEL MERECIMIENTO -->
-  <div id="calculator-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 max-h-[85vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-stone-100 pb-2">
-        <h3 class="font-bold text-stone-800 text-base font-serif text-terracota">✨ Calculadora del Merecimiento</h3>
-        <button onclick="closeModal('calculator-modal')" class="text-stone-400">✕</button>
-      </div>
-
-      <div id="calc-step-1" class="space-y-3 text-xs">
-        <p class="font-semibold text-stone-700">1. ¿Cómo te sientes al recibir dinero o regalos de otros?</p>
-        <div class="space-y-2">
-          <button onclick="selectScore(1, 1)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">A) Me cuesta recibir o siento que debo pagar de vuelta de inmediato.</button>
-          <button onclick="selectScore(1, 2)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">B) Acepto con timidez pero me genera ligera incomodidad.</button>
-          <button onclick="selectScore(1, 3)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">C) Recibo con profunda gratitud sabiendo que lo merezco.</button>
-        </div>
-      </div>
-
-      <div id="calc-step-2" class="space-y-3 text-xs hidden">
-        <p class="font-semibold text-stone-700">2. ¿Qué ocurre en tu cuerpo cuando te tomas un tiempo de descanso sin trabajar?</p>
-        <div class="space-y-2">
-          <button onclick="selectScore(2, 1)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">A) Culpa intensa o necesidad imperiosa de estar ocupada.</button>
-          <button onclick="selectScore(2, 2)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">B) Descanso pero mantengo la mente repasando pendientes.</button>
-          <button onclick="selectScore(2, 3)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">C) Disfruto el descanso como recarga sagrada para mi biología.</button>
-        </div>
-      </div>
-
-      <div id="calc-step-3" class="space-y-3 text-xs hidden">
-        <p class="font-semibold text-stone-700">3. ¿Qué lealtad sientes hacia tu historia familiar sobre la prosperidad?</p>
-        <div class="space-y-2">
-          <button onclick="selectScore(3, 1)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">A) Siento que si gano mucho dinero me alejo del dolor de mi clan.</button>
-          <button onclick="selectScore(3, 2)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">B) A veces temo el juicio de mi familia si me va mejor que a ellos.</button>
-          <button onclick="selectScore(3, 3)" class="w-full text-left p-2.5 bg-stone-50 rounded-xl border border-stone-200 hover:border-terracota">C) Sé que mi abundancia honra la vida que mis ancestros me dieron.</button>
-        </div>
-      </div>
-
-      <div id="calc-result" class="space-y-3 text-xs hidden">
-        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 text-center">
-          <span class="text-[10px] uppercase font-bold text-terracota block mb-1">Tu Diagnóstico de Frecuencia</span>
-          <h4 id="calc-score-title" class="text-base font-serif font-bold text-stone-800 mb-2"></h4>
-          <p id="calc-score-desc" class="text-stone-600 leading-relaxed"></p>
-        </div>
-        <button onclick="resetCalculator()" class="w-full py-2.5 bg-stone-800 text-white font-bold rounded-xl text-xs">Repetir Evaluación</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: REGULACIÓN DEL SISTEMA NERVIOSO -->
-  <div id="sn-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 max-h-[85vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-stone-100 pb-2">
-        <h3 class="font-bold text-stone-800 text-base font-serif text-sage">🌿 Ejercicios Somáticos de Regulación</h3>
-        <button onclick="closeModal('sn-modal')" class="text-stone-400">✕</button>
-      </div>
-
-      <div class="text-xs space-y-4 text-stone-600">
-        <!-- Ejercicio 1 -->
-        <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 space-y-1">
-          <span class="font-bold text-stone-800 block text-terracota">1. Suspiro Fisiológico (Desactivación de Estrés Inmediato)</span>
-          <p>Realiza <strong>dos inhalaciones cortas y continuas por la nariz</strong> (llenando al máximo tus pulmones) y expulsa todo el aire por la boca en una exhalación larga y suave.</p>
-          <span class="text-[10px] text-stone-400 italic block mt-1">Repite 3 veces para calmar tu ritmo cardíaco.</span>
-        </div>
-
-        <!-- Ejercicio 2 -->
-        <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 space-y-1">
-          <span class="font-bold text-stone-800 block text-terracota">2. Estimulación Vagal VOOO (Liberación del Pecho)</span>
-          <p>Inhala profundo y al exhalar emite un sonido grave con la boca redondeada: <strong>«VOOOOOO»</strong>, sintiendo la vibración física en tu abdomen y garganta.</p>
-          <span class="text-[10px] text-stone-400 italic block mt-1">Envía una señal biológica de seguridad a tu nervio vago.</span>
-        </div>
-
-        <!-- Ejercicio 3 -->
-        <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 space-y-1">
-          <span class="font-bold text-stone-800 block text-terracota">3. Orientación 5-4-3-2-1 (Retorno al Presente)</span>
-          <p>Mira a tu alrededor e identifica: 5 objetos visibles, 4 texturas que puedas tocar, 3 sonidos sutiles, 2 olores presentes y 1 respiración consciente.</p>
-          <span class="text-[10px] text-stone-400 italic block mt-1">Saca al cerebro del bucle de ansiedad o preocupación.</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- MODAL DE INFORMACIÓN Y EJERCICIOS SOMÁTICOS -->
   <div id="somatic-modal" class="fixed inset-0 bg-black/60 hidden backdrop-blur-xs flex items-center justify-center p-4 z-50">
@@ -459,57 +362,6 @@
     let selectedPrice = '';
     let paymentReports = [];
     let validCodes = JSON.parse(localStorage.getItem('raices_codes') || '{}');
-    let calcScore = 0;
-
-    // Calculadora del Merecimiento
-    function openMeritCalculator() {
-      calcScore = 0;
-      document.getElementById('calc-step-1').classList.remove('hidden');
-      document.getElementById('calc-step-2').classList.add('hidden');
-      document.getElementById('calc-step-3').classList.add('hidden');
-      document.getElementById('calc-result').classList.add('hidden');
-      document.getElementById('calculator-modal').classList.remove('hidden');
-    }
-
-    function selectScore(step, val) {
-      calcScore += val;
-      if (step === 1) {
-        document.getElementById('calc-step-1').classList.add('hidden');
-        document.getElementById('calc-step-2').classList.remove('hidden');
-      } else if (step === 2) {
-        document.getElementById('calc-step-2').classList.add('hidden');
-        document.getElementById('calc-step-3').classList.remove('hidden');
-      } else if (step === 3) {
-        document.getElementById('calc-step-3').classList.add('hidden');
-        showMeritResult();
-      }
-    }
-
-    function showMeritResult() {
-      const title = document.getElementById('calc-score-title');
-      const desc = document.getElementById('calc-score-desc');
-      
-      if (calcScore <= 4) {
-        title.innerText = "Frecuencia de Contracción & Lealtad al Esfuerzo";
-        desc.innerText = "Tu sistema nervioso percibe el recibir o el descanso como una amenaza. Hay lealtades invisibles que te exigen sacrificio para pertenecer a tu linaje. Te recomendamos iniciar por 'Volviendo al Origen'.";
-      } else if (calcScore <= 7) {
-        title.innerText = "Frecuencia de Merecimiento Intermitente";
-        desc.innerText = "Deseas expandirte y aceptas la prosperidad, pero ante situaciones de tensión reaparecen viejos patrones de culpa o miedo. El 'El Código de Merecimiento' te ayudará a estabilizar tu campo.";
-      } else {
-        title.innerText = "Frecuencia de Expansión & Canal Abierto";
-        desc.innerText = "Tienes una relación sana con el recibir y comprendes que tu abundancia beneficia a tu entorno. Estás lista para mentorías de alto valor o el acompaño VIP 1 a 1.";
-      }
-      
-      document.getElementById('calc-result').classList.remove('hidden');
-    }
-
-    function resetCalculator() {
-      openMeritCalculator();
-    }
-
-    function openSNModal() {
-      document.getElementById('sn-modal').classList.remove('hidden');
-    }
 
     // Módulos Somáticos
     const somaticData = {
@@ -520,7 +372,7 @@
           <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200">
             <span class="font-bold text-terracota block mb-1">🧘‍♀️ Ejercicio Somático Diario:</span>
             <p>1. Coloca ambas manos sobre tu pecho y siente tus pies firmes en la tierra.</p>
-            <p>2. Cierra los ojos y visualiza detrás de tu hombro izquierdo a tu madre y detrás de tu hombro derecho a tu padre.</p>
+            <p>2. Cierra los ojos y visualiza detrás de tu hombro izquierdo a tu madre y detras de tu hombro derecho a tu padre.</p>
             <p>3. Inhala profundo y repite internamente: <em>«Honro su historia, tomo la vida que me dieron y elijo hacer algo próspero con ella. Lo de ustedes se queda con ustedes, lo mío me pertenece.»</em></p>
           </div>
         `
@@ -695,4 +547,4 @@
     }
   </script>
 </body>
-</html>
+</html> 
